@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod; 
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.ms.login.dto.LoginDto;
 import br.com.fiap.ms.login.dto.UsuarioDto;
 import br.com.fiap.ms.login.service.UsuarioService;
  
@@ -20,8 +21,8 @@ public class AuthController {
 	private UsuarioService usuarioService;
 
 	 @RequestMapping(value = "api/login/", method = RequestMethod.POST)  
-		public ResponseEntity<Boolean> logar(@RequestBody UsuarioDto usuarioDto) {			 			 
-		 	Boolean ret = usuarioService.Logar(usuarioDto);	 
+		public ResponseEntity<Boolean> logar(@RequestBody LoginDto loginDto) {			 			 
+		 	Boolean ret = usuarioService.Logar(loginDto);	 
 			if(ret)
 			{
 				return ResponseEntity.ok(ret);

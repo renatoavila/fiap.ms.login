@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
 import br.com.fiap.ms.login.component.QueueSender;
+import br.com.fiap.ms.login.dto.LoginDto;
 import br.com.fiap.ms.login.dto.UsuarioDto;
 import br.com.fiap.ms.login.model.Usuario;
 import br.com.fiap.ms.login.model.UsuarioLoginHistorico;
@@ -41,11 +42,11 @@ public class UsuarioService {
 
 	}
 
-	public Boolean Logar(UsuarioDto usuarioDto) { 
-		Optional<Usuario> usuario = usuarioRepository.findOneByEmail(usuarioDto.getEmail());
+	public Boolean Logar(LoginDto loginDto) { 
+		Optional<Usuario> usuario = usuarioRepository.findOneByEmail(loginDto.getEmail());
 	 
 			if (usuario.isPresent()) {
-				if (usuario.get().getSenha().equals(Utilitario.encriptarSenha(usuarioDto.getSenha()))) {
+				if (usuario.get().getSenha().equals(Utilitario.encriptarSenha(loginDto.getSenha()))) {
  
 			    	queueSender.send(new Gson().toJson(new UsuarioLoginHistorico(usuario.get())));
 					return true;
